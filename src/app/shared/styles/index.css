@@ -1,0 +1,8 @@
+/* ===== SHARED STYLES INDEX ===== */
+
+/* Import all shared styles */
+@import './buttons.css';
+@import './forms.css';
+@import './layout.css';
+
+/* Additional shared utilities can be added here */ 

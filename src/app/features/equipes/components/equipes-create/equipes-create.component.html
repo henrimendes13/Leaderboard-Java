@@ -1,0 +1,51 @@
+<div class="equipe-create-container">
+  <!-- Header -->
+  <header class="create-header">
+    <div class="header-left">
+      <div class="team-icon">👥</div>
+      <h1 class="title">Nova Equipe</h1>
+    </div>
+    <div class="header-right">
+      <button class="btn btn-secondary" (click)="voltar()">
+        <i class="arrow-left">←</i>
+        <span>Voltar</span>
+      </button>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="create-content">
+    <div class="form-container">
+      <div class="form-header">
+        <h2>Cadastrar Nova Equipe</h2>
+      </div>
+      
+      <form class="equipe-form" (ngSubmit)="salvarEquipe()">
+        <div class="form-group">
+          <label for="nomeEquipe">Nome da Equipe</label>
+          <input 
+            type="text" 
+            id="nomeEquipe" 
+            name="nomeEquipe" 
+            placeholder="Ex: Equipe Alpha"
+            [(ngModel)]="equipe.nome"
+            class="form-input"
+            required
+          >
+          <p class="form-help">Digite um nome único para a equipe.</p>
+        </div>
+
+        <div class="form-actions">
+          <button type="submit" class="btn btn-success">
+            <i class="save-icon">💾</i>
+            <span>Salvar Equipe</span>
+          </button>
+          <button type="button" class="btn btn-secondary" (click)="cancelar()">
+            <i class="cancel-icon">✕</i>
+            <span>Cancelar</span>
+          </button>
+        </div>
+      </form>
+    </div>
+  </main>
+</div>

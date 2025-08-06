@@ -1,0 +1,84 @@
+<div class="equipes-container">
+  <!-- Header -->
+  <header class="equipes-header">
+    <div class="header-left">
+      <div class="team-icon">👥</div>
+      <h1 class="title">Gerenciar Equipes</h1>
+    </div>
+    <div class="header-right">
+      <button class="btn btn-success" (click)="novaEquipe()">
+        <i class="plus-icon">+</i>
+        <span>Nova Equipe</span>
+      </button>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="equipes-content">
+    <!-- Loading State -->
+    <div *ngIf="loading" class="loading-state">
+      <div class="loading-spinner">⏳</div>
+      <p>Carregando equipes...</p>
+    </div>
+
+    <!-- Error State -->
+    <div *ngIf="error && !loading" class="error-state">
+      <div class="error-icon">⚠️</div>
+      <h3>Erro ao carregar equipes</h3>
+      <p>{{ error }}</p>
+      <button class="btn btn-primary" (click)="carregarEquipes()">
+        Tentar Novamente
+      </button>
+    </div>
+
+    <!-- Empty State -->
+    <div *ngIf="!loading && !error && equipes.length === 0" class="empty-state">
+      <h2 class="empty-title">Nenhuma equipe cadastrada</h2>
+      <p class="empty-description">
+        Clique no botão "Nova Equipe" para começar a cadastrar as equipes que participarão da competição.
+      </p>
+    </div>
+
+    <!-- Equipes List -->
+    <div *ngIf="!loading && !error && equipes.length > 0" class="equipes-list">
+      <div class="list-header">
+        <h2>Equipes Cadastradas ({{ equipes.length }})</h2>
+      </div>
+      
+      <div class="equipes-table">
+        <div class="table-header">
+          <div class="header-nome">Nome da Equipe</div>
+          <div class="header-pontos">Pontos</div>
+          <div class="header-posicao">Posição</div>
+          <div class="header-acoes">Ações</div>
+        </div>
+        
+        <div class="table-body">
+          <div *ngFor="let equipe of equipes; let i = index" class="equipe-row" [class.odd]="i % 2 === 1">
+            <div class="equipe-nome">{{ equipe.nome }}</div>
+            <div class="equipe-pontos">{{ equipe.pontos || 0 }}</div>
+            <div class="equipe-posicao">{{ equipe.posicao ? equipe.posicao + 'º' : '-' }}</div>
+            <div class="equipe-acoes">
+              <button class="btn btn-small btn-primary" (click)="editarEquipe(equipe)">
+                <i class="edit-icon">✏️</i>
+                Editar
+              </button>
+              <button class="btn btn-small btn-danger" (click)="deletarEquipe(equipe)">
+                <i class="delete-icon">🗑️</i>
+                Deletar
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Navigation Button -->
+  <div class="nav-button-container">
+    <button class="btn btn-secondary nav-btn" (click)="voltarAoLeaderboard()">
+      <i class="arrow-left">←</i>
+      <span>Voltar ao Leaderboard</span>
+    </button>
+  </div>
+</div>

@@ -1,0 +1,5 @@
+CREATE TABLE IF NOT EXISTS leaderboard (
+    id BIGSERIAL PRIMARY KEY,
+    player_name VARCHAR(255) NOT NULL,
+    score INTEGER NOT NULL
+);

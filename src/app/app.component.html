@@ -1,0 +1,41 @@
+<div class="app-container">
+  <!-- Header Section -->
+  <header class="header">
+    <div class="header-left">
+      <div class="trophy-icon">🏆</div>
+      <h1 class="title">Leaderboard Personalizado</h1>
+    </div>
+    
+    <!-- Navigation Menu -->
+    <nav class="nav-menu">
+      <a routerLink="/leaderboard" routerLinkActive="active" class="nav-item">
+        <i class="nav-icon">📊</i>
+        <span>Leaderboard</span>
+      </a>
+      <a routerLink="/equipes" routerLinkActive="active" class="nav-item">
+        <i class="nav-icon">👥</i>
+        <span>Equipes</span>
+      </a>
+      <a routerLink="/workouts" routerLinkActive="active" class="nav-item">
+        <i class="nav-icon">💪</i>
+        <span>Workouts</span>
+      </a>
+    </nav>
+    
+    <div class="header-right">
+      <button class="btn btn-warning" (click)="resetLeaderboard()">
+        <i class="reset-icon">🔄</i>
+        <span>Reset Leaderboard</span>
+      </button>
+      <button class="btn btn-success" (click)="downloadPDF()">
+        <i class="download-icon">📄</i>
+        <span>Download PDF</span>
+      </button>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="main-content">
+    <router-outlet></router-outlet>
+  </main>
+</div> 

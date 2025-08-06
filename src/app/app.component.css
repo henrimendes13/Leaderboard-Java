@@ -1,0 +1,141 @@
+/* ===== APP COMPONENT STYLES ===== */
+
+/* App Container */
+.app-container {
+  min-height: 100vh;
+  background-color: var(--dark-bg);
+  color: var(--light-text);
+}
+
+/* Title Styles */
+.title {
+  font-size: 2.5rem;
+  font-weight: bold;
+  color: var(--primary-color);
+  margin: 0;
+}
+
+/* Welcome Section */
+.welcome-section {
+  background-color: var(--dark-bg);
+  border: 2px solid var(--light-text);
+  border-radius: var(--border-radius-lg);
+  padding: var(--spacing-xl);
+  margin-bottom: var(--spacing-xl);
+}
+
+.welcome-header {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-md);
+  margin-bottom: var(--spacing-lg);
+}
+
+.welcome-header h2 {
+  font-size: 1.8rem;
+  color: var(--light-text);
+  margin: 0;
+}
+
+.welcome-text {
+  font-size: 1.1rem;
+  color: var(--light-text);
+  margin-bottom: var(--spacing-lg);
+  line-height: 1.6;
+}
+
+.setup-steps {
+  margin-bottom: var(--spacing-xl);
+  padding-left: var(--spacing-lg);
+}
+
+.setup-steps li {
+  font-size: 1rem;
+  color: var(--light-text);
+  margin-bottom: var(--spacing-md);
+  line-height: 1.5;
+}
+
+.setup-steps strong {
+  color: var(--primary-color);
+}
+
+.action-buttons {
+  display: flex;
+  gap: var(--spacing-md);
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.action-btn {
+  flex: 0 1 auto;
+  min-width: 250px;
+  justify-content: center;
+  padding: var(--spacing-md) var(--spacing-lg);
+  font-size: 1rem;
+}
+
+/* Instructions Section */
+.instructions-section {
+  background-color: var(--dark-bg);
+  border: 2px solid var(--light-text);
+  border-radius: var(--border-radius-lg);
+  padding: var(--spacing-lg);
+}
+
+.instructions-header {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  margin-bottom: var(--spacing-md);
+}
+
+.instructions-header h3 {
+  font-size: 1.3rem;
+  color: var(--light-text);
+  margin: 0;
+}
+
+.instructions-list {
+  list-style: none;
+  padding: 0;
+}
+
+.instructions-list li {
+  color: var(--light-text);
+  margin-bottom: var(--spacing-sm);
+  padding-left: var(--spacing-md);
+  position: relative;
+  line-height: 1.4;
+}
+
+.instructions-list li::before {
+  content: "•";
+  color: var(--primary-color);
+  font-weight: bold;
+  position: absolute;
+  left: 0;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .title {
+    font-size: 2rem;
+  }
+  
+  .action-buttons {
+    flex-direction: column;
+  }
+  
+  .action-btn {
+    min-width: auto;
+  }
+  
+  .welcome-header h2 {
+    font-size: 1.5rem;
+  }
+  
+  .setup-steps li {
+    font-size: 0.9rem;
+  }
+} 

@@ -1,0 +1,104 @@
+<div class="workout-create-container">
+  <!-- Header -->
+  <header class="create-header">
+    <div class="header-left">
+      <div class="workout-icon">💪</div>
+      <h1 class="title">Novo Workout</h1>
+    </div>
+    <div class="header-right">
+      <button class="btn btn-secondary" (click)="voltar()" [disabled]="loading">
+        <i class="arrow-left">←</i>
+        <span>Voltar</span>
+      </button>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="create-content">
+    <div class="form-container">
+      <div class="form-header">
+        <h2>Cadastrar Novo Workout</h2>
+      </div>
+      
+      <form class="workout-form" (ngSubmit)="salvarWorkout()" #workoutForm="ngForm">
+        <div class="form-group">
+          <label for="nomeWorkout">Nome do Workout *</label>
+          <input 
+            type="text" 
+            id="nomeWorkout" 
+            name="nomeWorkout" 
+            placeholder="Ex: AMRAP 10 min Burpees"
+            [(ngModel)]="workout.nome"
+            class="form-input"
+            required
+            [disabled]="loading"
+          >
+          <p class="form-help">Digite um nome único para o workout.</p>
+        </div>
+
+        <div class="form-group">
+          <label for="tipoWorkout">Tipo de Workout *</label>
+          <select 
+            id="tipoWorkout" 
+            name="tipoWorkout" 
+            [(ngModel)]="workout.tipo"
+            class="form-select"
+            required
+            [disabled]="loading"
+          >
+            <option value="">Selecione o tipo...</option>
+            <option value="REPETICOES">Repetições</option>
+            <option value="TEMPO">Tempo</option>
+            <option value="PESO">Peso</option>
+          </select>
+          <div class="type-info">
+            <p class="type-info-item">Repetições: Maior número = melhor posição</p>
+            <p class="type-info-item">Tempo: Menor tempo = melhor posição</p>
+            <p class="type-info-item">Peso: Maior peso = melhor posição</p>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="unidade">Unidade de Medida *</label>
+          <input 
+            type="text" 
+            id="unidade" 
+            name="unidade" 
+            placeholder="Ex: reps, min:sec, kg"
+            [(ngModel)]="workout.unidade"
+            class="form-input"
+            required
+            [disabled]="loading"
+          >
+          <p class="form-help">Ex: reps, min:sec, kg, lbs, etc.</p>
+        </div>
+
+        <div class="form-group">
+          <label for="descricao">Descrição (Opcional)</label>
+          <textarea 
+            id="descricao" 
+            name="descricao" 
+            placeholder="Descreva o workout, regras, movimentos, etc."
+            [(ngModel)]="workout.descricao"
+            class="form-textarea"
+            rows="4"
+            [disabled]="loading"
+          ></textarea>
+          <p class="form-help">Descrição detalhada do workout.</p>
+        </div>
+
+        <div class="form-actions">
+          <button type="submit" class="btn btn-success" [disabled]="loading || !workoutForm.form.valid">
+            <i class="save-icon" *ngIf="!loading">💾</i>
+            <i class="loading-spinner" *ngIf="loading">⏳</i>
+            <span>{{ loading ? 'Salvando...' : 'Salvar Workout' }}</span>
+          </button>
+          <button type="button" class="btn btn-secondary" (click)="cancelar()" [disabled]="loading">
+            <i class="cancel-icon">✕</i>
+            <span>Cancelar</span>
+          </button>
+        </div>
+      </form>
+    </div>
+  </main>
+</div>

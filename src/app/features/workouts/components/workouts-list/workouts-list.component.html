@@ -1,0 +1,90 @@
+<div class="workouts-container">
+  <!-- Header -->
+  <header class="workouts-header">
+    <div class="header-left">
+      <div class="workout-icon">💪</div>
+      <h1 class="title">Gerenciar Workouts</h1>
+    </div>
+    <div class="header-right">
+      <button class="btn btn-success" (click)="novoWorkout()" [disabled]="loading">
+        <i class="plus-icon">+</i>
+        <span>Novo Workout</span>
+      </button>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="workouts-content">
+    <!-- Loading State -->
+    <div *ngIf="loading" class="loading-state">
+      <div class="loading-spinner">⏳</div>
+      <p>Carregando workouts...</p>
+    </div>
+
+    <!-- Error State -->
+    <div *ngIf="error && !loading" class="error-state">
+      <div class="error-icon">⚠️</div>
+      <h3>Erro ao carregar workouts</h3>
+      <p>{{ error }}</p>
+      <button class="btn btn-primary" (click)="carregarWorkouts()">
+        Tentar Novamente
+      </button>
+    </div>
+
+    <!-- Empty State -->
+    <div *ngIf="!loading && !error && workouts.length === 0" class="empty-state">
+      <h2 class="empty-title">Nenhum workout cadastrado</h2>
+      <p class="empty-description">
+        Clique no botão "Novo Workout" para começar a cadastrar os exercícios que serão realizados na competição.
+      </p>
+    </div>
+
+    <!-- Workouts List -->
+    <div *ngIf="!loading && !error && workouts.length > 0" class="workouts-list">
+      <div class="list-header">
+        <h2>Workouts Cadastrados ({{ workouts.length }})</h2>
+      </div>
+      
+      <div class="workouts-table">
+        <div class="table-header">
+          <div class="header-nome">Nome do Workout</div>
+          <div class="header-tipo">Tipo</div>
+          <div class="header-unidade">Unidade</div>
+          <div class="header-status">Status</div>
+          <div class="header-acoes">Ações</div>
+        </div>
+        
+        <div class="table-body">
+          <div *ngFor="let workout of workouts; let i = index" class="workout-row" [class.odd]="i % 2 === 1">
+            <div class="workout-nome">{{ workout.nome }}</div>
+            <div class="workout-tipo">{{ getTipoDisplay(workout.tipo) }}</div>
+            <div class="workout-unidade">{{ workout.unidade }}</div>
+            <div class="workout-status">
+              <span class="status-badge" [class.active]="workout.ativo" [class.inactive]="!workout.ativo">
+                {{ workout.ativo ? 'Ativo' : 'Inativo' }}
+              </span>
+            </div>
+            <div class="workout-acoes">
+              <button class="btn btn-small btn-primary" (click)="editarWorkout(workout)" [disabled]="loading">
+                <i class="edit-icon">✏️</i>
+                Editar
+              </button>
+              <button class="btn btn-small btn-danger" (click)="deletarWorkout(workout)" [disabled]="loading">
+                <i class="delete-icon">🗑️</i>
+                Deletar
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Navigation Button -->
+  <div class="nav-button-container">
+    <button class="btn btn-secondary nav-btn" (click)="voltarAoLeaderboard()" [disabled]="loading">
+      <i class="arrow-left">←</i>
+      <span>Voltar ao Leaderboard</span>
+    </button>
+  </div>
+</div>

@@ -1,0 +1,140 @@
+<!-- Loading State -->
+<div *ngIf="loading" class="loading-container">
+  <div class="loading-spinner"></div>
+  <p>Carregando leaderboard...</p>
+</div>
+
+<!-- Error State -->
+<div *ngIf="error" class="error-container">
+  <div class="error-message">
+    <i class="error-icon">⚠️</i>
+    <p>{{ error }}</p>
+    <button class="btn btn-primary" (click)="loadLeaderboardData()">Tentar Novamente</button>
+  </div>
+</div>
+
+<!-- Main Leaderboard Content -->
+<div *ngIf="!loading && !error" class="leaderboard-container">
+  
+  <!-- Header Section -->
+  <div class="leaderboard-header">
+    <div class="header-left">
+      <div class="trophy-icon">🏆</div>
+      <h1 class="title">Leaderboard Desafio <span class="title-highlight">Ceros</span></h1>
+    </div>
+    
+    <div class="header-controls">
+      <div class="category-dropdown">
+        <select class="form-select">
+          <option>Todas as Categorias</option>
+        </select>
+      </div>
+      
+      <div class="action-buttons">
+        <button class="btn btn-warning" (click)="resetLeaderboard()">
+          <i class="reset-icon">🔄</i>
+          <span>Reset Leaderboard</span>
+        </button>
+        <button class="btn btn-success" (click)="downloadPDF()">
+          <i class="download-icon">📄</i>
+          <span>Download PDF</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Leaderboard Table -->
+  <div class="leaderboard-table-container">
+    <div class="table-header">
+      <div class="table-title">
+        <i class="trophy-icon">🏆</i>
+        <span>INTERMEDIARIO FEMININO DUPLA</span>
+      </div>
+    </div>
+    
+    <div class="table-wrapper">
+      <table class="leaderboard-table">
+        <thead>
+          <tr>
+            <th class="equipe-column">Equipe</th>
+            <th *ngFor="let workout of workouts" class="workout-column">
+              <div class="workout-header">
+                <div class="workout-name">{{ workout.nome }}</div>
+                <div class="workout-unit">{{ workout.unidade }}</div>
+              </div>
+            </th>
+            <th class="total-column">Total Pontos</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let entry of leaderboardEntries; let i = index" class="table-row">
+            <td class="equipe-cell">{{ entry.equipeNome }}</td>
+            
+                         <td *ngFor="let workout of workouts" class="workout-cell">
+               <div class="result-input-container">
+                 <input 
+                   type="text" 
+                   class="result-input-inline"
+                   [value]="getResultForEquipeAndWorkout(entry.equipeId, workout.id!) || ''"
+                   [placeholder]="'Digite o resultado'"
+                   (input)="onResultInput($event, entry.equipeId, workout.id!)"
+                   (keyup.enter)="saveResultInline(entry.equipeId, workout.id!)"
+                   (blur)="saveResultInline(entry.equipeId, workout.id!)"
+                   (keyup.escape)="cancelResultEdit(entry.equipeId, workout.id!)"
+                 >
+                 <div *ngIf="getResultForEquipeAndWorkout(entry.equipeId, workout.id!)" class="position-info">
+                   <span class="medal-icon">{{ getMedalIcon(getPositionForEquipeAndWorkout(entry.equipeId, workout.id!)) }}</span>
+                   <span class="position-number">{{ getPositionForEquipeAndWorkout(entry.equipeId, workout.id!) }}°</span>
+                 </div>
+               </div>
+             </td>
+            
+            <td class="total-cell">
+              <span class="total-points">{{ entry.totalPoints }}</span>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Empty State -->
+  <div *ngIf="leaderboardEntries.length === 0" class="empty-state">
+    <div class="empty-icon">📊</div>
+    <h3>Nenhuma equipe cadastrada</h3>
+    <p>Para começar a usar o leaderboard, você precisa:</p>
+    <ol class="setup-steps">
+      <li>Criar equipes na seção "Equipes"</li>
+      <li>Criar workouts na seção "Workouts"</li>
+      <li>Adicionar resultados para cada equipe</li>
+    </ol>
+    <div class="action-buttons">
+      <button class="btn btn-info" routerLink="/equipes">
+        <i class="team-icon">👥</i>
+        <span>Gerenciar Equipes</span>
+      </button>
+      <button class="btn btn-success" routerLink="/workouts">
+        <i class="workout-icon">💪</i>
+        <span>Gerenciar Workouts</span>
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- Instructions Section -->
+<section class="instructions-section">
+  <div class="instructions-header">
+    <i class="document-icon">📋</i>
+    <h3>Instruções</h3>
+  </div>
+     <ul class="instructions-list">
+     <li>Clique diretamente nos campos para editar resultados</li>
+     <li>Pressione Enter ou clique fora para salvar</li>
+     <li>Pressione Escape para cancelar a edição</li>
+     <li>Para repetições e peso: maior valor = melhor posição</li>
+     <li>Para tempo: menor valor = melhor posição</li>
+     <li>Posições: 1º = 1 ponto, 2º = 2 pontos, etc.</li>
+     <li>Vencedor: equipe com menor total de pontos</li>
+     <li>Desempate: 1º critério = mais 1º lugares, 2º critério = mais 2º lugares</li>
+   </ul>
+</section> 
